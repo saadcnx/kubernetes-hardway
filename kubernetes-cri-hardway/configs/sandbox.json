@@ -1,0 +1,13 @@
+{
+  "metadata": {
+    "name": "hardway-sandbox",
+    "namespace": "default",
+    "uid": "cri-hardway-001",
+    "attempt": 2
+  },
+  "hostname": "hardway-sandbox",
+  "log_directory": "/tmp/cri-hardway-logs",
+  "linux": {
+    "cgroup_parent": "machine.slice"
+  }
+}
