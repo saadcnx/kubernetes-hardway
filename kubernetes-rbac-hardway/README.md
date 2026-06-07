@@ -329,13 +329,6 @@ kubectl delete role pod-reader -n production
 kubectl delete pod prod-nginx -n production --ignore-not-found
 kubectl delete namespace production
 ```
-
----
-
-## 🎓 Interview Script
-
-> *"I manually implemented a namespace-scoped Kubernetes RBAC policy using hand-written YAML. I defined a `Role` named `pod-reader` in the `production` namespace, granting only `get`, `list`, and `watch` on pods within the core API group. I then created a `RoleBinding` connecting this Role to the user `saad` — the exact Common Name from their X.509 certificate. I validated the policy using `kubectl auth can-i` with impersonation, confirming the user could list pods in `production` but was denied delete operations and blocked from accessing any other namespace. I also demonstrated the more scalable group-based binding pattern using the certificate's `O` field."*
-
 ---
 
 ## 🎯 Key Takeaways
@@ -356,8 +349,8 @@ kubectl delete namespace production
 
 | Lab | Topic |
 |---|---|
-| [kubernetes-cri-hardway](https://github.com/your-username/kubernetes-cri-hardway) | Bypassing API Server via raw CRI gRPC |
-| [kubernetes-auth-hardway](https://github.com/your-username/kubernetes-auth-hardway) | X.509 user provisioning & authentication |
+| [kubernetes-cri-hardway](https://github.com/saadcnx/kubernetes-cri-hardway) | Bypassing API Server via raw CRI gRPC |
+| [kubernetes-auth-hardway](https://github.com/saadcnx/kubernetes-auth-hardway) | X.509 user provisioning & authentication |
 | **kubernetes-rbac-hardway** ← *You are here* | Hand-crafted RBAC authorization |
 
 ---
@@ -376,11 +369,8 @@ kubectl delete namespace production
 
 ## 👤 Author
 
-**[Your Name]**
-*Systems Engineer | Kubernetes Security Enthusiast*
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat&logo=linkedin)](https://linkedin.com)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=flat&logo=github)](https://github.com)
+**Saad khan**
+*DevOps Engineer | Kubernetes Security Enthusiast*
 
 ---
 
