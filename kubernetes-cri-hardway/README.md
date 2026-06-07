@@ -5,7 +5,7 @@
   <img src="https://img.shields.io/badge/Kubernetes-CRI-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white"/>
   <img src="https://img.shields.io/badge/containerd-Runtime-gray?style=for-the-badge&logo=containerd&logoColor=white"/>
   <img src="https://img.shields.io/badge/crictl-gRPC-blue?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/Minikube-Lab-orange?style=for-the-badge&logo=kubernetes"/>
+  <img src="https://img.shields.io/badge/Minikube-orange?style=for-the-badge&logo=kubernetes"/>
   <img src="https://img.shields.io/badge/Level-Advanced-red?style=for-the-badge"/>
 </p>
 
@@ -17,7 +17,7 @@
 
 ## 📌 What This Project Demonstrates
 
-This lab simulates a **catastrophic Kubernetes control plane failure** and documents how to manually orchestrate a running Pod **without**:
+This simulates a **catastrophic Kubernetes control plane failure** and documents how to manually orchestrate a running Pod **without**:
 
 - ❌ `kubectl`
 - ❌ API Server
@@ -32,15 +32,15 @@ By interfacing directly with `containerd` via `crictl` over **Unix domain socket
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│                  Standard Kubernetes Flow            │
+│                  Standard Kubernetes Flow           │
 │                                                     │
-│  kubectl → API Server → Scheduler → Kubelet → CRI  │
+│  kubectl → API Server → Scheduler → Kubelet → CRI   │
 │                                            ↓        │
 │                                       containerd    │
 └─────────────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────┐
-│               This Lab (API Server DOWN)             │
+│               This Lab (API Server DOWN)            │
 │                                                     │
 │  crictl ──────────────────────────────→ CRI         │
 │  (gRPC)                                  ↓          │
@@ -186,6 +186,8 @@ got "/k8s.io/..." instead
 
 **Root Cause:** Minikube configures containerd with the `systemd` cgroup driver. An empty `linux: {}` in `sandbox.json` causes crictl to fall back to the `cgroupfs` path schema, which systemd rejects.
 
+
+
 **Fix:**
 ```json
 "linux": {
@@ -296,14 +298,12 @@ minikube delete -p cri-lab
 
 ## 👤 Author
 
-**[Your Name]**  
-*Systems Engineer | Kubernetes Internals Enthusiast*
+**Saad khan**  
+*DevOps Engineer | Kubernetes Internals Enthusiast*
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat&logo=linkedin)](https://linkedin.com)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=flat&logo=github)](https://github.com)
 
 ---
 
 <p align="center">
-  <i>Built during a hands-on CRI deep-dive lab — where the control plane dies but the containers live on.</i>
+  <i>Built during a hands-on CRI deep-dive — where the control plane dies but the containers live on.</i>
 </p>
