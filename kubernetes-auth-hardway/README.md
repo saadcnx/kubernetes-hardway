@@ -266,7 +266,7 @@ kubectl --kubeconfig=saad-dev.kubeconfig auth can-i get deployments         # �
 ```
 User "saad-dev" cannot list resource "pods"
 ```
-✅ **Good.** Authentication passed. Proceed to Phase 6 (RBAC).
+**Good.** Authentication passed. Proceed to Phase 6 (RBAC).
 
 ---
 
@@ -313,12 +313,6 @@ minikube delete -p pki-lab
 
 ---
 
-## 🎓 Interview Script
-
-> *"I manually provisioned a Kubernetes human user using X.509 client certificate authentication — no automated tooling. I generated a 2048-bit RSA private key, built a CSR with `CN=saad-dev` and `O=developer-group`, and signed it directly against the Kubernetes cluster CA using OpenSSL. I then assembled a kubeconfig from scratch using `kubectl config` subcommands, embedding the signed certificate and private key. On first API call, the server returned `Forbidden` — which confirmed authentication succeeded but RBAC authorization was pending. I then created a `Role` with pod read permissions and a `RoleBinding` targeting the `developer-group` group, after which `saad-dev` could successfully list pods. The key insight: Kubernetes has no internal User object — identity is entirely derived from the X.509 certificate's `CN` and `O` fields."*
-
----
-
 ## 🎯 Key Takeaways
 
 | Concept | Detail |
@@ -346,11 +340,8 @@ minikube delete -p pki-lab
 
 ## 👤 Author
 
-**[Your Name]**
-*Systems Engineer | Kubernetes Security Enthusiast*
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat&logo=linkedin)](https://linkedin.com)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=flat&logo=github)](https://github.com)
+**Saad khan**
+*DevOps Engineer | Kubernetes Security Enthusiast*
 
 ---
 
