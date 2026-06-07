@@ -183,6 +183,7 @@ FATA[0000] run pod sandbox: failed to start sandbox...
 expected cgroupsPath to be of format "slice:prefix:name" for systemd cgroups,
 got "/k8s.io/..." instead
 ```
+<img width="1247" height="316" alt="error_cgroup_cgroupfs_using_here_but_in_minikube_systemd_format_is_using" src="https://github.com/user-attachments/assets/5e2545fd-87ac-4f7c-8d48-aaf43c209e07" />
 
 **Root Cause:** Minikube configures containerd with the `systemd` cgroup driver. An empty `linux: {}` in `sandbox.json` causes crictl to fall back to the `cgroupfs` path schema, which systemd rejects.
 
@@ -193,13 +194,17 @@ got "/k8s.io/..." instead
 "linux": {
   "cgroup_parent": "machine.slice"
 }
+
 ```
+
+<img width="1142" height="353" alt="slice_method_for_systemd_cgroup_error_fixed" src="https://github.com/user-attachments/assets/4f899fd7-03e2-4cdc-b9b8-0b04ba68ab8e" />
 
 ---
 
 ### Issue 2: Kubelet Garbage Collection Loop
 
 **Error (journalctl):**
+
 ```
 RunPodSandbox ... returns sandbox id "8c5019..."
 StopPodSandbox for "8c5019..."
@@ -212,6 +217,7 @@ received sandbox exit event ... exit_status:137
 ```bash
 sudo systemctl stop kubelet
 ```
+<img width="1251" height="488" alt="stoped_kubelet_that_stoping_our_custom_podsandbox" src="https://github.com/user-attachments/assets/8d8d66a7-6f0e-4e14-a0a6-b76c0c2939bc" />
 
 ---
 
