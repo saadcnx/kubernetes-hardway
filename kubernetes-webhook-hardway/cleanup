@@ -1,0 +1,13 @@
+kubectl delete validatingwebhookconfiguration strict-policy-webhook
+
+kubectl delete pod good-nginx -n production --ignore-not-found
+kubectl delete pod dev-bad-latest -n dev --ignore-not-found
+kubectl delete pod good-while-webhook-down -n production --ignore-not-found
+
+kubectl delete -f policy-checker-deploy.yaml --ignore-not-found
+
+kubectl delete namespace production
+kubectl delete namespace dev
+kubectl delete namespace security-system
+
+minikube delete -p admission-lab
