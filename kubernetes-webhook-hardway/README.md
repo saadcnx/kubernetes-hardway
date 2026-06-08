@@ -81,9 +81,7 @@ AdmissionReview: allowed: false  (the actual policy decision)
 kubernetes-webhook-hardway/
 │
 ├── README.md                        ← You are here
-├── setup.sh                         ← One-command full lab setup
-├── cleanup.sh                       ← Tear down everything
-├── .gitignore
+├── cleanup                      ← Tear down everything
 │
 ├── webhook-server/
 │   ├── server.py                    ← Python webhook (policy engine)
@@ -92,10 +90,6 @@ kubernetes-webhook-hardway/
 ├── manifests/
 │   ├── policy-checker-deploy.yaml   ← Deployment + Service
 │   └── strict-policy-webhook.yaml   ← ValidatingWebhookConfiguration
-│
-├── certs/
-│   ├── generate-certs.sh            ← CA + TLS cert generator
-│   └── .gitignore                   ← Excludes *.key, *.crt from git
 │
 ├── test-pods/
 │   ├── bad-latest-pod.yaml          ← Should be DENIED (latest tag)
@@ -351,6 +345,13 @@ kubectl rollout status deployment/policy-checker -n security-system
 
 ### 404 on `/validate-pods`
 **Root cause:** Kubernetes API Server appends `?timeout=3s` to the webhook path. Strict `==` path matching fails.
+
+# Error
+<img width="1411" height="66" alt="while_testing_the_validating_webhook_i_got_error" src="https://github.com/user-attachments/assets/a9c0bd0e-57d7-40e8-8fd8-1c1c3f181a47" />
+
+# Fixed
+<img width="1421" height="333" alt="webhook_working_so_well_error_resolved" src="https://github.com/user-attachments/assets/09c9a2d1-3ac4-40bd-84ef-9ecbe8491d88" />
+
 ```python
 # Wrong
 if self.path != "/validate-pods":
@@ -379,7 +380,7 @@ kubectl logs -n security-system deploy/policy-checker
 ## 🧼 Cleanup
 
 ```bash
-bash cleanup.sh
+cleanup
 ```
 
 Or manually:
@@ -388,12 +389,6 @@ kubectl delete validatingwebhookconfiguration strict-policy-webhook
 kubectl delete namespace production dev security-system
 minikube delete -p admission-lab
 ```
-
----
-
-## 🎓 Interview Script
-
-> *"I built a Kubernetes Validating Admission Webhook from scratch in Python. The webhook server listened on HTTPS:8443, secured with a custom CA and SAN certificate. I registered a `ValidatingWebhookConfiguration` that intercepted Pod CREATE and UPDATE operations only in namespaces labeled `environment=production`. When the API server sent an `AdmissionReview` JSON payload, my server parsed the Pod spec and enforced two rules: no `:latest` or untagged images, and every container must have `resources.limits.cpu`. Violations returned HTTP 200 with `allowed: false` and `status.code: 403` inside the response body — because the HTTP status is the transport result, not the policy decision. I configured `failurePolicy: Fail` so the cluster fails closed if the webhook is unreachable, and validated namespace scoping by proving the `dev` namespace bypassed the policy entirely."*
 
 ---
 
@@ -416,9 +411,9 @@ minikube delete -p admission-lab
 
 | Lab | Topic |
 |---|---|
-| [kubernetes-cri-hardway](https://github.com/your-username/kubernetes-cri-hardway) | Bypassing API Server via raw CRI gRPC |
-| [kubernetes-auth-hardway](https://github.com/your-username/kubernetes-auth-hardway) | X.509 user provisioning & authentication |
-| [kubernetes-rbac-hardway](https://github.com/your-username/kubernetes-rbac-hardway) | Hand-crafted RBAC authorization |
+| [kubernetes-cri-hardway](https://github.com/saadcnx/kubernetes-cri-hardway) | Bypassing API Server via raw CRI gRPC |
+| [kubernetes-auth-hardway](https://github.com/saadcnx/kubernetes-auth-hardway) | X.509 user provisioning & authentication |
+| [kubernetes-rbac-hardway](https://github.com/saadcnx/kubernetes-rbac-hardway) | Hand-crafted RBAC authorization |
 | **kubernetes-webhook-hardway** ← *You are here* | Validating Admission Webhook from scratch |
 
 ---
