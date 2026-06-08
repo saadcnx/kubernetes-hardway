@@ -159,14 +159,14 @@ Lab 2 (Auth) feeds directly into Lab 3 (RBAC) — the `saad-dev` certificate cre
 
 | Question | Covered In |
 |---|---|
-| How does a Pod actually start at the container runtime level? | Lab 1 |
-| How does Kubernetes know *who* is making an API request? | Lab 2 |
-| How does Kubernetes decide *what* a user is allowed to do? | Lab 3 |
-| How does Kubernetes enforce policies *before* objects are created? | Lab 4 |
-| What survives a complete API Server crash? | Lab 1 |
-| What is the difference between `401 Unauthorized` and `403 Forbidden`? | Lab 2 |
-| Why should you bind RBAC to groups instead of individual users? | Lab 3 |
-| Why does a webhook return HTTP 200 even when it's rejecting a request? | Lab 4 |
+| How does a Pod actually start at the container runtime level? | Practice 1 |
+| How does Kubernetes know *who* is making an API request? | Practice 2 |
+| How does Kubernetes decide *what* a user is allowed to do? | Practice 3 |
+| How does Kubernetes enforce policies *before* objects are created? | Practice 4 |
+| What survives a complete API Server crash? | Practice 1 |
+| What is the difference between `401 Unauthorized` and `403 Forbidden`? | Practice 2 |
+| Why should you bind RBAC to groups instead of individual users? | Practice 3 |
+| Why does a webhook return HTTP 200 even when it's rejecting a request? | Practice 4 |
 
 ---
 
