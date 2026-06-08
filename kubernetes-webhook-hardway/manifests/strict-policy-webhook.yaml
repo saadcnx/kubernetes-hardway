@@ -1,0 +1,27 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: strict-policy-webhook
+webhooks:
+- name: policy.saad.dev
+  admissionReviewVersions: ["v1"]
+  sideEffects: None
+  timeoutSeconds: 3
+  failurePolicy: Fail
+  matchPolicy: Equivalent
+  namespaceSelector:
+    matchLabels:
+      environment: production
+  rules:
+  - apiGroups: [""]
+    apiVersions: ["v1"]
+    operations: ["CREATE", "UPDATE"]
+    resources: ["pods"]
+    scope: "Namespaced"
+  clientConfig:
+    service:
+      name: policy-checker-svc
+      namespace: security-system
+      path: "/validate-pods"
+      port: 443
+    caBundle: "${CA_BUNDLE}"

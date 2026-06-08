@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: policy-checker
+  namespace: security-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: policy-checker
+  template:
+    metadata:
+      labels:
+        app: policy-checker
+    spec:
+      containers:
+      - name: policy-checker
+        image: policy-checker:v1
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8443
+        volumeMounts:
+        - name: tls
+          mountPath: /tls
+          readOnly: true
+        readinessProbe:
+          httpGet:
+            scheme: HTTPS
+            path: /healthz
+            port: 8443
+          initialDelaySeconds: 2
+          periodSeconds: 5
+      volumes:
+      - name: tls
+        secret:
+          secretName: policy-webhook-tls
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: policy-checker-svc
+  namespace: security-system
+spec:
+  selector:
+    app: policy-checker
+  ports:
+  - name: https
+    port: 443
+    targetPort: 8443
